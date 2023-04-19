@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #11100F;
+  min-height: 200vh;
+}
+
+header{
+  display: flex;
+  background-color: #1B1A19;
+  padding: 10px;
+  border-bottom: 1px rgb(194, 194, 194) solid;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.icon{
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.app-name{
+  display: inline-block;
+  color: white;
+  font-family: roboto;
+  font-weight: 500;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.app-name:hover{
+  text-decoration: underline;
+}
+
+nav{
+  background-color: #252423;
+  width: 300px;
+  height: calc(100vh);
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0 ;
+  display: flex;
+  flex-direction: column;
+  padding: 150px 0 0 0;
+}
+
+li{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  cursor: pointer;
+  padding-left: 30px;
+  height: 45px;
+}
+
+li:hover{
+  background-color: #3B3A39;
+}
+
+.list{
+  text-decoration: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+}
+
+hr{
+  width: 250px;
+  margin: 10px 25px;
+  border: 0;
+  border-top: 1px rgb(117, 117, 117) solid;
+}
+
+.list-icon{
+  filter: invert(1);
+}
+
+.hamburger-menu{
+  position: absolute;
+  top: 80px;
+  left: 30px;
+}
+
+.line{
+  height: 2px;
+  width: 25px;
+  background-color: white;
+  margin: 5px 0;
+}
+
+.active{
+  background-color: #3B3A39;
+}
+
+main{
+  display: inline-block;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 100;
+  position: absolute;
+  top: 80px;
+  left: 350px;
+}
+
+:target{
+  background-color: #3B3A39;
+}

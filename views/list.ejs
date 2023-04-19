@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <img src="/images/checklist.png" alt="icon" height="25" class="icon">
+      <p class="app-name">To Do</p>
+    </header>
+    <nav>
+      <a href="#">
+        <div class="hamburger-menu">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+    </a>
+    <ul>
+      <li onclick="location.href='myday'">
+        <img src="/images/list.svg" alt="list-icon" class="list-icon" height="20">
+        <button href="#" class="list" value="My Day">My Day</button>
+      </li>
+      <li onclick="location.href='work'">
+        <img src="/images/list.svg" alt="list-icon" class="list-icon" height="20">
+        <button href="#" class="list" value="Work">Work</button>
+      </li>
+      <li onclick="location.href='tasks'">
+        <img src="/images/list.svg" alt="list-icon" class="list-icon" height="20">
+        <button href="#" class="list" value="Tasks">Tasks</button>
+      </li>
+    </ul>
+    <hr>
+    </nav>
+    <main>
+      <h2><%= value %></h2>
+    </main>
+    <script src="/js/script.js"></script>
+  </body>
+</html>

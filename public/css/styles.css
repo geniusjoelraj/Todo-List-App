@@ -168,6 +168,14 @@ main{
   border-radius: 3px;
 }
 
+.task:hover{
+  background-color: #6d6d6d;
+}
+
+form > .task:hover{
+  background-color: #3B3A39;
+}
+
 .add{
   background-color: transparent;
   color: white;
@@ -182,4 +190,47 @@ main{
 .add:hover{
   color: black;
   background-color: white;
+}
+
+.tick-box{
+  height: 15px;
+  width: 15px;
+  margin: 0 15px 0 10px;
+  z-index: 5;
+  opacity: 0;
+}
+
+.lab{
+  display: block;
+  width: 17px;
+  height: 17px;
+  background-color: transparent;
+  position: absolute;
+  border: 1px black solid;
+  border-radius: 50%;
+  margin-left: 10px;
+  color: transparent;
+}
+
+.tick-box:checked + .lab{
+  background-color: #1B1A19;
+  color: white;
+}
+
+.tick-box:checked ~ .lab > .mark{
+  opacity: 1;
+}
+
+.tick-box:checked ~ span{
+  text-decoration: line-through;
+}
+
+.mark{
+  opacity: 0;
+  height: 5px;
+  width: 10px;
+  margin: 4px 0 0 3px;
+  transform: rotate(-45deg);
+  border-left: 2px white solid;
+  border-bottom: 2px white solid;
 }

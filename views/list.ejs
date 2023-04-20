@@ -51,7 +51,7 @@
         <button type="submit" class="add">Add</button>
         </form> 
         <% for (let i = 0; i < tasks.length; i++) { %> 
-          <li class="task"><span><input type="checkbox" class="tick-box"></span><%= tasks[i] %></li>
+          <li class="task"><input type="checkbox" class="tick-box" id="tick"><label for="tick" class="lab"><div class="mark"></div></label><span><%= tasks[i] %></span></li>
         <% } %>
       </ul>
     </main>

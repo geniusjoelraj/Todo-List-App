@@ -13,20 +13,45 @@ app.set("view engine", 'ejs');
 
 app.use(express.static('public'));
 
+let item = '';
+const myDayTasks = [];
+      workTasks = [];
+      tasksTasks = [];
+
 app.get("/", function(req, res) {
-  res.render("list", {value: "Todo List"});
+  res.redirect("/myday");
 });
 
 app.get("/myday", function(req, res) {
-  res.render("list", {value: "My Day"});
+  const curDate = new Date();
+  date = curDate.toLocaleDateString("en-US", {weekday: "long", month: "long", day: "numeric"});
+  res.render("list", {value: "My Day", date: date, tasks: myDayTasks});
+});
+
+app.post("/myday", function(req,res) {
+  item = req.body.newTask;
+  myDayTasks.push(item);
+  res.redirect("/myday");
 });
 
 app.get("/work", function(req, res) {
-  res.render("list", {value: "Work"});
+  res.render("list", {value: "Work", tasks: workTasks});
+});
+
+app.post("/work", function(req,res) {
+  item = req.body.newTask;
+  workTasks.push(item);
+  res.redirect("/work");
 });
 
 app.get("/tasks", function(req, res) {
-  res.render("list", {value: "Tasks"});
+  res.render("list", {value: "Tasks", tasks: tasksTasks});
+});
+
+app.post("/tasks", function(req,res) {
+  item = req.body.newTask;
+  tasksTasks.push(item);
+  res.redirect("/tasks");
 });
 
 

@@ -55,7 +55,7 @@ nav{
   padding: 150px 0 0 0;
 }
 
-li{
+.list-of-lists > li{
   list-style: none;
   display: flex;
   align-items: center;
@@ -66,7 +66,7 @@ li{
   height: 45px;
 }
 
-li:hover{
+.list-of-lists > li:hover{
   background-color: #3B3A39;
 }
 
@@ -108,15 +108,78 @@ hr{
 }
 
 main{
-  display: inline-block;
+  display: block;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   z-index: 100;
-  position: absolute;
-  top: 80px;
-  left: 350px;
+  padding: 80px 50px 0 350px;
+
+}
+
+.invert{
+  filter: invert(1);
 }
 
 :target{
   background-color: #3B3A39;
+}
+
+.date{
+  color: gray;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.add-new{
+  background-color: transparent;
+  font-size: 1rem;
+  color: white;
+  padding: 10px;
+  margin: 20px;
+  border: none;
+  width: 100%;
+}
+
+.add-new:focus{
+  outline: none;
+}
+
+.add-new:focus::placeholder{
+  color: white;
+}
+
+.tasks{
+  list-style: none;
+}
+
+.fi{
+  position: relative;
+  top: 2px;
+  left: 5px;
+}
+
+.task{
+  background-color: #3B3A39;
+  display: flex;
+  height: 50px;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.add{
+  background-color: transparent;
+  color: white;
+  font-size: 1rem;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px white solid;
+  cursor: pointer;
+  margin-left: 925px;
+}
+
+.add:hover{
+  color: black;
+  background-color: white;
 }

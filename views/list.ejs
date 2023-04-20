@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/checklist.png" type="image/x-icon">
     <title>To Do</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel="stylesheet" href="/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   </head>
@@ -21,24 +23,37 @@
           <div class="line"></div>
         </div>
     </a>
-    <ul>
-      <li onclick="location.href='myday'">
-        <img src="/images/list.svg" alt="list-icon" class="list-icon" height="20">
-        <button href="#" class="list" value="My Day">My Day</button>
+    <ul class="list-of-lists">
+      <li onclick="location.href='myday'" <% if (value === 'My Day') {%> class='active' <% } %>>
+        <img src="/images/home.svg" id="l1" alt="list-icon" class="list-icon" height="20">
+        <button href="#l1" class="list" value="My Day">My Day</button>
       </li>
-      <li onclick="location.href='work'">
-        <img src="/images/list.svg" alt="list-icon" class="list-icon" height="20">
-        <button href="#" class="list" value="Work">Work</button>
+      <li onclick="location.href='work'" <% if (value === 'Work') {%> class='active' <% } %>>
+        <img src="/images/envelope.svg" id="l2" alt="list-icon" class="list-icon" height="20">
+        <button href="#l2" class="list" value="Work">Work</button>
       </li>
-      <li onclick="location.href='tasks'">
-        <img src="/images/list.svg" alt="list-icon" class="list-icon" height="20">
-        <button href="#" class="list" value="Tasks">Tasks</button>
+      <li onclick="location.href='tasks'" <% if (value === 'Tasks') {%> class='active' <% } %>>
+        <img src="/images/list.svg" id="l3" alt="list-icon" class="list-icon" height="20">
+        <button href="#l3" class="list" value="Tasks">Tasks</button>
       </li>
     </ul>
     <hr>
     </nav>
     <main>
+
       <h2><%= value %></h2>
+      <p class="date"><%= date %></p>
+      <ul class="tasks">
+        <% let action = '' ;%>
+        <% if(value === 'My Day') {action = 'myday'} else if (value === 'Work') {action = 'work'} else if (value === 'Tasks') {action = 'tasks'} %>
+        <form action="/<%= action %>" method="post" autocomplete="off">
+        <li class="task"><i class="fi fi-rr-plus"></i><input name="newTask" class="add-new" type="text" placeholder="Add new task"></li>
+        <button type="submit" class="add">Add</button>
+        </form> 
+        <% for (let i = 0; i < tasks.length; i++) { %> 
+          <li class="task"><span><input type="checkbox" class="tick-box"></span><%= tasks[i] %></li>
+        <% } %>
+      </ul>
     </main>
     <script src="/js/script.js"></script>
   </body>

@@ -168,6 +168,10 @@ main{
   border-radius: 3px;
 }
 
+ul > .task:first-of-type{
+  margin-top: 50px;
+}
+
 .task:hover{
   background-color: #6d6d6d;
 }
@@ -184,7 +188,9 @@ form > .task:hover{
   border-radius: 5px;
   border: 1px white solid;
   cursor: pointer;
-  margin-left: 925px;
+  position: absolute;
+  right: 0;
+  bottom: -40px;
 }
 
 .add:hover{
@@ -233,4 +239,31 @@ form > .task:hover{
   transform: rotate(-45deg);
   border-left: 2px white solid;
   border-bottom: 2px white solid;
+}
+
+.new-task-form{
+  position: relative;
+}
+
+@media all and (max-width: 700px) {
+  nav{
+    width: 50px;
+    overflow: hidden;
+  }
+
+  hr{
+    display: none;
+  }
+
+  .hamburger-menu{
+    left: 15px;
+  }
+
+  .list-of-lists > li{
+    padding-left: 15px;
+  }
+
+  main{
+    padding-left: 100px;
+  }
 }

@@ -22,7 +22,7 @@
           <div class="line"></div>
           <div class="line"></div>
         </div>
-    </a>
+      </a>
     <ul class="list-of-lists">
       <li onclick="location.href='myday'" <% if (value === 'My Day') {%> class='active' <% } %>>
         <img src="/images/home.svg" id="l1" alt="list-icon" class="list-icon" height="20">
@@ -40,13 +40,12 @@
     <hr>
     </nav>
     <main>
-
       <h2><%= value %></h2>
       <p class="date"><%= date %></p>
       <ul class="tasks">
         <% let action = '' ;%>
         <% if(value === 'My Day') {action = 'myday'} else if (value === 'Work') {action = 'work'} else if (value === 'Tasks') {action = 'tasks'} %>
-        <form action="/<%= action %>" method="post" autocomplete="off">
+        <form action="/<%= action %>" method="post" autocomplete="off" class="new-task-form">
         <li class="task"><i class="fi fi-rr-plus"></i><input name="newTask" class="add-new" type="text" placeholder="Add new task"></li>
         <button type="submit" class="add">Add</button>
         </form> 

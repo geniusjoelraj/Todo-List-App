@@ -46,12 +46,29 @@
         <% let action = '' ;%>
         <% if(value === 'My Day') {action = 'myday'} else if (value === 'Work') {action = 'work'} else if (value === 'Tasks') {action = 'tasks'} %>
         <form action="/<%= action %>" method="post" autocomplete="off" class="new-task-form">
-        <li class="task"><i class="fi fi-rr-plus"></i><input name="newTask" class="add-new" type="text" placeholder="Add new task"></li>
-        <button type="submit" class="add">Add</button>
-        </form> 
-        <% for (let i = 0; i < tasks.length; i++) { %> 
-          <li class="task"><input type="checkbox" class="tick-box" id="tick"><label for="tick" class="lab"><div class="mark"></div></label><span><%= tasks[i] %></span></li>
-        <% } %>
+          <li class="task"><i class="fi fi-rr-plus"></i><input name="newTask" class="add-new" type="text" placeholder="Add new task"></li>
+          <button type="submit" class="add">Add</button>
+        </form>
+        <% tasks.forEach(function(task) { %>
+            <li class="task">
+              <form action="/check" method="post" >
+              <% if(task.checked) { %>
+                <input type="checkbox" name="checkbox" class="tick-box" checked value="<%= task._id %>" onclick="this.form.submit()">
+                <input type="hidden" name="checkbox_hidden" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
+              <% } else { %>
+                <input type="checkbox" name="checkbox" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
+                <input type="hidden" name="checkbox_hidden" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
+              <% } %>
+              <label for="tick" class="lab"><div class="mark"></div></label><span><%= task.name %></span>
+          </form>
+          <form action="/delete" method="post" class="delete-form">
+            <input type="hidden" name="delete" value="<%= task._id %>">
+            <button type="submit" class="delete-btn"> <img src="/images/delete.png" alt="bin" height="20" class="bin"></button>
+          </form>
+            
+
+            </li>
+        <% }); %>
       </ul>
     </main>
     <script src="/js/script.js"></script>

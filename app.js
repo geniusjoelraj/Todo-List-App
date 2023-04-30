@@ -28,7 +28,7 @@ const item1 = new Item({
 
 const item2 = new Item({
   name: "Click on the delete icon to delete an item.",
-  checked: true
+  checked: false
 });
 
 const defaultItems = [item1, item2];
@@ -87,11 +87,10 @@ app.post("/check", async function(req,res) {
   // console.log(name);
 });
 
-app.post("/delete", function(req, res) {
-  console.log('delete');
-  // const id = req.body.delete;
-  // console.log(id);
-  // res.redirect('/myday');
+app.post("/delete", async function(req, res) {
+  const id = req.body.delete;
+  await Item.deleteOne({'_id': id});
+  res.redirect('/myday');
 });
 
 // app.get("/work", function(req, res) {

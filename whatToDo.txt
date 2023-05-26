@@ -1,0 +1,46 @@
+structure of the lists object:
+
+[
+  {
+    _id: ObjectId(),
+    name: String,
+    list: [
+      {
+        _id: ObjectId(),
+        name: String,
+        checked: Boolean
+      },
+      {
+        _id: ObjectId(),
+        name: String,
+        checked: Boolean
+      },
+      {
+        _id: ObjectId(),
+        name: String,
+        checked: Boolean
+      }
+    ]
+  },
+  {
+    _id: ObjectId(),
+    name: String,
+    list: [
+      {
+        _id: ObjectId(),
+        name: String,
+        checked: Boolean
+      },
+      {
+        _id: ObjectId(),
+        name: String,
+        checked: Boolean
+      },
+      {
+        _id: ObjectId(),
+        name: String,
+        checked: Boolean
+      }
+    ]
+  }
+]

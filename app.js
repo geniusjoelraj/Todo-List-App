@@ -2,10 +2,8 @@ const express = require("express"),
       bodyParser = require("body-parser"), 
       port = process.env.PORT || 3000;
       ejs = require("ejs");
-      jsdom = require("jsdom");
-      dom = new jsdom.JSDOM('');
-      jquery = require('jquery')(dom.window);
       mongoose = require('mongoose'); 
+      _ = require('lodash');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,14 +16,19 @@ const itemsSchema = {
   name: String,
   checked: Boolean
 }
+const listSchema = {
+  name: String,
+  list: [itemsSchema] // listsSchema has a field which links it to the itemsSchema model.
+}
 
 const Item = mongoose.model('item', itemsSchema);
+const List = mongoose.model('list', listSchema);
 
-const item1 = new Item({
+// Default items
+const item1 = new Item ({
   name: 'Welcome to your todolist!',
   checked: false
 });
-
 const item2 = new Item({
   name: "Click on the delete icon to delete an item.",
   checked: false
@@ -33,88 +36,74 @@ const item2 = new Item({
 
 const defaultItems = [item1, item2];
 
-let listItems = [];
-
-async function getItems() {
-  listItems = [];
-  try {
-    mongoItems = await Item.find({});
-    if (mongoItems.length === 0) {
-      Item.insertMany(defaultItems);
+let lists = [];
+async function getLists(listTitle) {
+  try{
+    lists = await List.findOne({name: listTitle});
+    if (lists === null || lists === undefined) {
+      List.insertMany({
+        name: listTitle,
+        list: defaultItems
+      });
+      lists = await List.findOne({name: listTitle});
+      return lists.list;
     }
-    mongoItems.forEach(function(item){
-      listItems.push(item);
-    });
-    return listItems;
+    return lists.list;
   } catch(err) {
     console.log(err.message);
   }
 }
 
-
+// Redirecting to myday.
 app.get("/", function(req, res) {
-  res.redirect("/myday");
+  res.redirect("/my day");
 });
 
-app.get("/myday", async function(req, res) {
+let listName = '';
+let listTitle = '';
+app.get('/:ListName', async function(req, res) {
   const curDate = new Date();
+  listName = req.params.ListName;
+  listTitle = _.startCase(listName);
   date = curDate.toLocaleDateString("en-US", {weekday: "long", month: "long", day: "numeric"});
-  let listItems = await getItems(); 
-  await res.render("list", {value: "My Day", date: date, tasks: listItems});
-});
-
-
-app.post("/myday", function(req,res) {
-  const item = req.body.newTask;
-  const newItem = new Item({
-    name: item,
-    checked: false
-  });
-  newItem.save();
-  res.redirect("/myday");
+  const lists = await getLists(listTitle);
+  // lists has the list which has all the tasks and checked status.
+  res.render("list", {value: listTitle, action: listName, date: date, lists: lists});
 });
 
 app.post("/check", async function(req,res) {
   const id = req.body.checkbox;
   const cd = req.body.checkbox_hidden;
+  const action = req.body.action;
+  const name = req.body.name;
   if (id == undefined) {
-    await Item.updateOne({'_id': cd}, {$set: {'checked': false}});
+    await List.updateOne({name: name, 'list._id': cd}, {$set: {'list.$.checked': false}});
   } else {
-    await Item.updateOne({'_id': cd}, {$set: {'checked': true}});
+    await List.updateOne({name: name, 'list._id': cd}, {$set: {'list.$.checked': true}});
   }
-  res.redirect('/myday');
-  // const name = await Item.find({'_id': id});
-  // console.log(name);
+  res.redirect('/'+action);
 });
 
 app.post("/delete", async function(req, res) {
   const id = req.body.delete;
-  await Item.deleteOne({'_id': id});
-  res.redirect('/myday');
+  const action = req.body.listName;
+  listTitle = _.startCase(action);
+  await List.findOneAndUpdate({name: listTitle}, {$pull: {list: {_id: id}}});
+  res.redirect('/'+action);
+}); 
+
+app.post("/:ListName", async function(req,res) {
+  listName = req.params.ListName;
+  listTitle = _.startCase(listName);
+  const item = req.body.newTask;
+  const newItem = new Item({
+    name: item,
+    checked: false
+  });
+  await List.findOneAndUpdate({name: listTitle}, {$push: {list: newItem}})
+  res.redirect("/"+listName);
 });
-
-// app.get("/work", function(req, res) {
-//   res.render("list", {value: "Work", tasks: workTasks});
-// });
-
-// app.post("/work", function(req,res) {
-//   item = req.body.newTask;
-//   workTasks.push(item);
-//   res.redirect("/work");
-// });
-
-// app.get("/tasks", function(req, res) {
-//   res.render("list", {value: "Tasks", tasks: tasksTasks});
-// });
-
-// app.post("/tasks", function(req,res) {
-//   item = req.body.newTask;
-//   tasksTasks.push(item);
-//   res.redirect("/tasks");
-// });
-
 
 app.listen(port, function() {
   console.log("Server running on port "+port);
 });
-

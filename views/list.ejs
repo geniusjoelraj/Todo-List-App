@@ -24,17 +24,9 @@
         </div>
       </a>
     <ul class="list-of-lists">
-      <li onclick="location.href='myday'" <% if (value === 'My Day') {%> class='active' <% } %>>
+      <li onclick="location.href='my day'" <% if (value === 'My Day') {%> class='active' <% } %>>
         <img src="/images/home.svg" id="l1" alt="list-icon" class="list-icon" height="20">
-        <button href="#l1" class="list" value="My Day">My Day</button>
-      </li>
-      <li onclick="location.href='work'" <% if (value === 'Work') {%> class='active' <% } %>>
-        <img src="/images/envelope.svg" id="l2" alt="list-icon" class="list-icon" height="20">
-        <button href="#l2" class="list" value="Work">Work</button>
-      </li>
-      <li onclick="location.href='tasks'" <% if (value === 'Tasks') {%> class='active' <% } %>>
-        <img src="/images/list.svg" id="l3" alt="list-icon" class="list-icon" height="20">
-        <button href="#l3" class="list" value="Tasks">Tasks</button>
+        <button href="#" class="list" value="My Day">My Day</button>
       </li>
     </ul>
     <hr>
@@ -43,32 +35,34 @@
       <h2><%= value %></h2>
       <p class="date"><%= date %></p>
       <ul class="tasks">
-        <% let action = '' ;%>
-        <% if(value === 'My Day') {action = 'myday'} else if (value === 'Work') {action = 'work'} else if (value === 'Tasks') {action = 'tasks'} %>
         <form action="/<%= action %>" method="post" autocomplete="off" class="new-task-form">
           <li class="task"><i class="fi fi-rr-plus"></i><input name="newTask" class="add-new" type="text" placeholder="Add new task"></li>
           <button type="submit" class="add">Add</button>
         </form>
-        <% tasks.forEach(function(task) { %>
+        <% try {lists.forEach(function(task) { %>
             <li class="task">
               <form action="/check" method="post" >
-              <% if(task.checked) { %>
-                <input type="checkbox" name="checkbox" class="tick-box" checked value="<%= task._id %>" onclick="this.form.submit()">
-                <input type="hidden" name="checkbox_hidden" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
-              <% } else { %>
-                <input type="checkbox" name="checkbox" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
-                <input type="hidden" name="checkbox_hidden" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
-              <% } %>
-              <label for="tick" class="lab"><div class="mark"></div></label><span><%= task.name %></span>
-          </form>
+                <% if(task.checked) { %>
+                  <input type="checkbox" name="checkbox" class="tick-box" checked value="<%= task._id %>" onclick="this.form.submit()">
+                  <input type="hidden" name="checkbox_hidden" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
+                  <input type="hidden" name="action" value="<%= action %>">
+                  <input type="hidden" name="name" value="<%= value %>">
+                <% } else { %>
+                  <input type="checkbox" name="checkbox" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
+                  <input type="hidden" name="checkbox_hidden" class="tick-box" value="<%= task._id %>" onclick = "this.form.submit()">
+                  <input type="hidden" name="action" value="<%= action %>">
+                  <input type="hidden" name="name" value="<%= value %>">
+                <% } %>
+                <label for="tick" class="lab"><div class="mark"></div></label><span><%= task.name %></span>
+              </form>
           <form action="/delete" method="post" class="delete-form">
+            <input type="hidden" name="listName" value="<%= action %>">
             <input type="hidden" name="delete" value="<%= task._id %>">
+            <input type="hidden" name="delName" value="<%= task.name %>">
             <button type="submit" class="delete-btn"> <img src="/images/delete.png" alt="bin" height="20" class="bin"></button>
           </form>
-            
-
             </li>
-        <% }); %>
+        <% }); } catch(err) {console.log('err')}%>
       </ul>
     </main>
     <script src="/js/script.js"></script>

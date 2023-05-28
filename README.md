@@ -18,7 +18,9 @@ This is a todo Web App
 * Make new lists for new user (not sure how to do it... yet)
 
 ## Preview
-<img src="Screenshot 2023-04-20 6.59.02 PM.png">
+<img src="Screenshot 2023-05-28 6.44.52 PM.png">
+<img src="Screenshot 2023-05-28 6.45.04 PM.png">
+<img src="Screenshot 2023-05-28 6.47.14 PM.png">
 
 App link: https://todo-list-app-geniusjoelraj.onrender.com
 
